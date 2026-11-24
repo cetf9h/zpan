@@ -141,8 +141,8 @@ export function createImageUploadGateway(
       }
 
       const scope = prefixToScope(prefix)
-      const bucket = platform.getBinding<R2BucketLike>(PUBLIC_IMAGES_BINDING)
-      if (bucket) return r2Upload(bucket, platform, scope, id, file, contentType)
+      // const bucket = platform.getBinding<R2BucketLike>(PUBLIC_IMAGES_BINDING)
+      // if (bucket) return r2Upload(bucket, platform, scope, id, file, contentType)
       return cloudUpload(platform, scope, id, file, contentType)
     },
 
@@ -150,7 +150,7 @@ export function createImageUploadGateway(
     // this only removes the object from R2 (CF) or the Cloud avatar service (fallback).
     async deletePublicImageVariants(platform, prefix, id): Promise<void> {
       const scope = prefixToScope(prefix)
-
+      /*
       const bucket = platform.getBinding<R2BucketLike>(PUBLIC_IMAGES_BINDING)
       if (bucket) {
         try {
@@ -160,7 +160,7 @@ export function createImageUploadGateway(
         }
         return
       }
-
+      */
       const binding = await licenseBinding.loadActiveLicenseBinding()
       if (!binding?.refreshToken) return
       const client = licensingCloud.createAvatarUploadClient(cloudBaseUrl(platform), binding.refreshToken)

@@ -12,8 +12,8 @@ export async function serveAvatarBlob(c: Context<Env>) {
   const id = c.req.param('id')
   if ((scope !== 'user' && scope !== 'team') || !id || !OPAQUE_ID_PATTERN.test(id)) return c.body(null, 404)
 
-  const bucket = c.get('platform').getBinding<R2BucketLike>(PUBLIC_IMAGES_BINDING)
-  if (!bucket) return c.body(null, 404)
+  // const bucket = c.get('platform').getBinding<R2BucketLike>(PUBLIC_IMAGES_BINDING)
+  // if (!bucket) return c.body(null, 404)
 
   const obj = await bucket.get(`${scope}/${id}`)
   if (!obj) return c.body(null, 404)
